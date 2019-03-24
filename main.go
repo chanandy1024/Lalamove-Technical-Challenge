@@ -56,7 +56,7 @@ func main() {
 	// Github
 	client := github.NewClient(nil)
 	ctx := context.Background()
-	opt := &github.ListOptions{PerPage: 10}
+	opt := &github.ListOptions{PerPage: 50}
 	// read input file
 	myfile, err := os.Open(os.Args[1])
 	if err != nil {
