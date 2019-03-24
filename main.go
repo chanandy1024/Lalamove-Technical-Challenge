@@ -67,9 +67,9 @@ func main() {
 	  scanner := bufio.NewScanner(myfile)
 	 // reading input file
 	  for scanner.Scan() {
-				first_arg := ""
-				second_arg := ""
-				version := ""
+		first_arg := ""
+		second_arg := ""
+		version := ""
 	      line = scanner.Text();
 	  // parsing line into separate strings
 	      for i:= 0; i < len(line); i++ {
@@ -87,27 +87,28 @@ func main() {
 	      for k:= counter2 + 1; k < len(line); k++ {
 	        version = version + string(line[k])
 	      }
-				releases, _, err := client.Repositories.ListReleases(ctx, first_arg, second_arg, opt)
-				if err != nil {
-					fmt.Println(err)
-				}
-				minVersion := semver.New(version)
-				allReleases := make([]*semver.Version, len(releases))
-				for i, release := range releases {
-					versionString := *release.TagName
-					if versionString[0] == 'v' {
-						versionString = versionString[1:]
-					}
-					allReleases[i] = semver.New(versionString)
-				}
-				versionSlice := LatestVersions(allReleases, minVersion)
-			// printing output
-				fmt.Printf("latest versions of %s", first_arg)
-				fmt.Printf("/%s", second_arg)
-				fmt.Printf(": %s", versionSlice)
-				fmt.Printf("\n")
+		releases, _, err := client.Repositories.ListReleases(ctx, first_arg, second_arg, opt)
+		if err != nil {
+			fmt.Println(err)
+		}
+		minVersion := semver.New(version)
+		allReleases := make([]*semver.Version, len(releases))
+		for i, release := range releases {
+			versionString := *release.TagName
+			if versionString[0] == 'v' {
+				versionString = versionString[1:]
+			}
+			allReleases[i] = semver.New(versionString)
+		}
+			versionSlice := LatestVersions(allReleases, minVersion)
+		// printing output
+		fmt.Printf("latest versions of %s", first_arg)
+		fmt.Printf("/%s", second_arg)
+		fmt.Printf(": %s", versionSlice)
+		fmt.Printf("\n")
 	    }
 	    if err := scanner.Err(); err != nil {
 	        fmt.Printf("Invalid: %s ", err)
 	    }
-} // end of main
+	// end of main
+}
