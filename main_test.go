@@ -2,7 +2,6 @@ package main
 
 import (
 	"testing"
-
 	"github.com/coreos/go-semver/semver"
 )
 
@@ -49,6 +48,21 @@ func TestLatestVersions(t *testing.T) {
 			minVersion:     semver.New("2.2.1"),
 		},
 		// Implement more relevant test cases here, if you can think of any
+		{
+			versionSlice:   []string{"2.2.1", "2.2.0", "2.1.0", "2.1.1", "1.9.5", "1.8.10", "1.10.0"},
+			expectedResult: []string{"2.2.1", "2.1.1", "1.10.0", "1.9.5", "1.8.10"},
+			minVersion:     semver.New("1.8.10"),
+		},
+		{
+			versionSlice:   []string{"2.2.0"},
+			expectedResult: []string{"2.2.0"},
+			minVersion:     semver.New("2.2.0"),
+		},
+		{
+			versionSlice:   []string{"2.2.0"},
+			expectedResult: []string{},
+			minVersion:     semver.New("2.3.0"),
+		},
 	}
 
 	test := func(versionData []string, expectedResult []string, minVersion *semver.Version) {
